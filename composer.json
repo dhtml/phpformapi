@@ -1,0 +1,20 @@
+{
+    "name": "dhtml/phpformapi",
+    "description": "phpformapi is an extremely dynamic and easy to use Form API.",
+    "homepage": "http://dhtmlframework.com/phpformapi",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Anthony Ogundipe",
+            "email": "support@dhtmlextreme.net",
+            "homepage": "http://www.dhtmlextreme.net/",
+            "role": "Original Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.0.0"
+    },
+    "autoload": {
+        "files": [ "lib/phpformapi.php" ]
+    }
+}
