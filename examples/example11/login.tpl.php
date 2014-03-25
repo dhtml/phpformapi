@@ -1,5 +1,3 @@
-<p>We are now going to submit this result. Notice that the name of this form is loginForm.</p>
-
 <form id="loginForm" name="loginForm" method="post">
   <p>User Name
     <input type="text" name="name" id="name" />

@@ -24,10 +24,12 @@ public static $formMsgs;
 public static $errorFields;
 public static $requestVars;
 public static $validation;
+public static $resetvars;
 public static $currentForm; //the current form that was submitted that we detected
 
 //Test for submission
 public function init() {
+self::$resetvars=false; //by default
 $themeapi_name1=md5('phpformapi');$themeapi_name2=md5('method');$themeapi_name3=md5('validation');
 $themeapi_value2=md5('post');
 self::$themeapi_name1=$themeapi_name1;self::$themeapi_name2=$themeapi_name2;self::$themeapi_name3=$themeapi_name3;
@@ -61,6 +63,7 @@ $validation=Array();
 
 //custom validate function
 $action="phpformapi_validate_{$form}";
+//echo $action;
 if(function_exists($action)) {
 @eval ("$action".'($validation,$vars,$form,$method);');
 }
@@ -84,6 +87,18 @@ Save error into static array
 public function setFormError($error=null,$custom=null) {
 self::$formErrors[]= is_null($custom)?$error:$custom;
 return false; //yes, that field did not validate
+}
+
+/*
+Reset Vars
+*/
+public function reset() {
+self::$resetvars=true; //when form is being rendered, submitted values shall be ignored
+}
+
+public function postError($field,$error,$custom=null) {
+self::setFormError($error,$custom);
+self::$errorFields[]=$field;
 }
 
 /*Post success message*/
@@ -247,15 +262,9 @@ $debug=self::jdecode(self::$validation[$matches]);
 $title2=$debug['title'];
    return self::setFormError("The $title field  does not match the $title2 field.",$message);
 }
-//self::$validation=$validation;
-
-
-//$d=self::$
-//echo "$field -> $matches / $value -> $value2";
 
 }
 
-//self::$requestVars=$vars;self::$validation=$validation;
 
 
 return true;
@@ -294,7 +303,10 @@ $formprops['method']= $method=="post" ? "post" : "get";
 $formvars=$initvals; //form variables are initial values at first
 
 //check if form has been previously submitted so that we can import the formvars
-if(($formprops['method']=='get')&&($_GET[md5('phpformapi')]==$form)) {
+if(self::$resetvars==true) {
+//do not change $formvars to submitted values, leave as default
+} 
+else if(($formprops['method']=='get')&&($_GET[md5('phpformapi')]==$form)) {
 $formprops['submit']=true; //flag that yes, the form has been previously submitted
 $formvars=$_GET;
 } else if(($formprops['method']=='post')&&($_POST[md5('phpformapi')]==$form)) {

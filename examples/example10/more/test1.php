@@ -1,14 +1,11 @@
-<?php
-//additional validation
-function phpformapi_validate_loginForm($validation,$vars,$form,$method)  {
+<?php 
+function phpformapi_validate_loginForm($validation,$vars)  {
 
 //loop through all the field and validate each one if necessary
 foreach($validation as $field=>$data) {
-$debug=phpformapi::jdecode($data);
-if(!is_array($debug)) {continue;} //the json package was not well formatted
-
 $value=$vars[$field];
 
+//to pass this validation, you must use home as password
 if($field=="pass"&&$value!="home") {
 phpformapi::setFormError("Your password is not correct");
 phpformapi::$errorFields[]=$field;
@@ -19,7 +16,6 @@ phpformapi::$errorFields[]=$field;
 }
 
 
-//submit application
 function phpformapi_submit_loginForm($values)  {
   print "<h2>My form was submitted!</h2><p>These are the values we got:</p>";
   echo "<pre>";
@@ -29,8 +25,11 @@ function phpformapi_submit_loginForm($values)  {
   exit();
 }
 
-include "../../lib/phpformapi.php";
+
+include "../../../lib/phpformapi.php";
+
 ?>
+
 <html>
 <head>
 <title>Validation</title>
@@ -38,8 +37,8 @@ include "../../lib/phpformapi.php";
 </head>
 <body>
 <?php
+//in case there are form errors, display them nicely here
 $errors=phpformapi::getErrors('loginForm');
-
 if($errors) {
 echo '<div class="error_box" style="display: block;">';
 echo $errors;

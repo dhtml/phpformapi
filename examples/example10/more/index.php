@@ -29,7 +29,7 @@ function phpformapi_submit_loginForm($values)  {
   exit();
 }
 
-include "../../lib/phpformapi.php";
+include "../../../lib/phpformapi.php";
 ?>
 <html>
 <head>
