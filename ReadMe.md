@@ -3,6 +3,7 @@
 PHPFormAPI is an extremely dynamic, extensible and fantastic form API for developing php web applications. 
 
 It was partly inspired by Drupal's form API, but it works on different principles.  The php formapi is a standalone, easy to use form api that saves lots of coding and time.
+
 It's created and developed by Anthony Ogundipe, CEO of [DHTMLExtreme](http://www.dhtmlextreme.net).
 
 ## Features

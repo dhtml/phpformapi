@@ -20,6 +20,7 @@ public static $themeapi_name3;
 public static $themeapi_value1;
 public static $themeapi_value2;
 public static $formErrors;
+public static $formMsgs;
 public static $errorFields;
 public static $requestVars;
 public static $validation;
@@ -85,6 +86,27 @@ self::$formErrors[]= is_null($custom)?$error:$custom;
 return false; //yes, that field did not validate
 }
 
+/*Post success message*/
+public function sendMessage($msg) {
+self::$formMsgs[]=$msg;
+}
+
+function messageblock($action = 'set') {
+  if($action=='get')
+  {
+    self::sendMessage(ob_get_clean());
+  }
+  elseif($action=='set')
+  {
+    ob_start();
+  }
+}
+
+function end_messageblock()
+{
+  self::messageblock('get');
+}
+
 /*
 Specify the form you are trying to get error report for.
 */
@@ -94,6 +116,14 @@ if(is_array(self::$formErrors)&&!empty(self::$formErrors)) {
 return implode('<br>',self::$formErrors);
 } else {return false;}
 
+}
+
+/*Retrieve formapi messages*/
+public function getMessages($frm) {
+if($frm!=self::$currentForm) {return false;} 
+if(is_array(self::$formMsgs)&&!empty(self::$formMsgs)) {
+return implode('<br>',self::$formMsgs);
+} else {return false;}
 }
 
 

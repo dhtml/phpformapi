@@ -37,6 +37,8 @@ Please note that all these examples are derived from the online tutorial found o
 <li><a href="example08/index.php" target="_blank">Example 08 - A more complete persistent Form</a>
 <li><a href="example09/index.php" target="_blank">Example 09 - A more complete persistent Form + initial values</a>
 <li><a href="example10/index.php" target="_blank">Example 10 - Validating your forms thoroughly</a>
+<li><a href="example11/index.php" target="_blank">Example 11 - Displaying Success Message</a>
+<li><a href="example12/index.php" target="_blank">Example 12 - Displaying Success Block</a>
 </ul>
 <br/>
 Visit our project on <a href="https://github.com/dhtml/phpformapi">github</a> to get more details. This page may be outdated.
