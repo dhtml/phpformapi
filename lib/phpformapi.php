@@ -28,7 +28,7 @@ public static $resetvars;
 public static $currentForm; //the current form that was submitted that we detected
 
 //Test for submission
-public function init() {
+public static function init() {
 self::$resetvars=false; //by default
 $themeapi_name1=md5('phpformapi');$themeapi_name2=md5('method');$themeapi_name3=md5('validation');
 $themeapi_value2=md5('post');
@@ -47,7 +47,7 @@ self::execHandler($form,$_GET,'get');
 
 }
 
-public function execHandler($form,$vars,$method) {
+public static function execHandler($form,$vars,$method) {
 unset($vars[self::$themeapi_name1]);
 unset($vars[self::$themeapi_name2]);
 $validation=unserialize(base64_decode($vars[self::$themeapi_name3]));
@@ -84,7 +84,7 @@ if(function_exists($action)) {
 /*
 Save error into static array
 */
-public function setFormError($error=null,$custom=null) {
+public static function setFormError($error=null,$custom=null) {
 self::$formErrors[]= is_null($custom)?$error:$custom;
 return false; //yes, that field did not validate
 }
@@ -92,17 +92,17 @@ return false; //yes, that field did not validate
 /*
 Reset Vars
 */
-public function reset() {
+public static function reset() {
 self::$resetvars=true; //when form is being rendered, submitted values shall be ignored
 }
 
-public function postError($field,$error,$custom=null) {
+public static function postError($field,$error,$custom=null) {
 self::setFormError($error,$custom);
 self::$errorFields[]=$field;
 }
 
 /*Post success message*/
-public function sendMessage($msg) {
+public static function sendMessage($msg) {
 self::$formMsgs[]=$msg;
 }
 
@@ -125,7 +125,7 @@ function end_messageblock()
 /*
 Specify the form you are trying to get error report for.
 */
-public function getErrors($frm) {
+public static function getErrors($frm) {
 if($frm!=self::$currentForm) {return false;} 
 if(is_array(self::$formErrors)&&!empty(self::$formErrors)) {
 return implode('<br>',self::$formErrors);
@@ -134,7 +134,7 @@ return implode('<br>',self::$formErrors);
 }
 
 /*Retrieve formapi messages*/
-public function getMessages($frm) {
+public static function getMessages($frm) {
 if($frm!=self::$currentForm) {return false;} 
 if(is_array(self::$formMsgs)&&!empty(self::$formMsgs)) {
 return implode('<br>',self::$formMsgs);
@@ -143,7 +143,7 @@ return implode('<br>',self::$formMsgs);
 
 
 //analyze the debug pack and send each field out individually for debugging
-public function validateForm($validation,$vars,$form,$method) {
+public static function validateForm($validation,$vars,$form,$method) {
 self::$requestVars=$vars;
 self::$validation=$validation;
 
@@ -162,13 +162,13 @@ if(!self::validateFormField($field,$value,$debug)) {self::$errorFields[]=$field;
 //var_dump(self::$errorFields);
 }
 
-function hasFailedValidation($form,$field) {
+public static function hasFailedValidation($form,$field) {
 if($form!=self::$currentForm||!is_array(self::$errorFields)) {return false;} 
 return in_array($field,self::$errorFields);
 }
 
 
-function validateFormField($field,$value,$debug) {
+public static function validateFormField($field,$value,$debug) {
 extract($debug);
 if(empty($title)) {return;}
 
@@ -274,7 +274,7 @@ return true;
 /*
 Load form from url
 */
-public function get($url,$initvals=null) {
+public static function get($url,$initvals=null) {
 $contents = @file_get_contents($url, false, null,-1);
 if(empty($contents)) {return "Form url is not available.";}
 return self::getStr($contents,$initvals);
@@ -283,7 +283,7 @@ return self::getStr($contents,$initvals);
 /*
 Load the form as a string
 */
-public function getStr($formHTML,$initvals=null) {
+public static function getStr($formHTML,$initvals=null) {
 $formprops=Array(); //form properties
 $fields=Array();
 
@@ -306,10 +306,10 @@ $formvars=$initvals; //form variables are initial values at first
 if(self::$resetvars==true) {
 //do not change $formvars to submitted values, leave as default
 } 
-else if(($formprops['method']=='get')&&($_GET[md5('phpformapi')]==$form)) {
+else if(($formprops['method']=='get')&&(isset($_GET[md5('phpformapi')])==$form)) {
 $formprops['submit']=true; //flag that yes, the form has been previously submitted
 $formvars=$_GET;
-} else if(($formprops['method']=='post')&&($_POST[md5('phpformapi')]==$form)) {
+} else if(($formprops['method']=='post')&&(isset($_POST[md5('phpformapi')])==$form)) {
 $formprops['submit']=true; //flag that yes, the form has been previously submitted
 $formvars=$_POST;
 }
