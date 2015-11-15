@@ -63,32 +63,6 @@ print $form->render();
 
 ```
 
-<?php
-include "../../lib/phpformapi.php";
-
-$form = new form(array(
-	'name' => 'form1',
-	)
-);
-
-
-
-$form->add_field('textarea', array(
-'#class'=>'form-group',
-'rows'=>'10',
-'class'=>'form-control',
-'id'=>'textarea1',
-));
-
-
-$form->add_field('button', array(
-'#value'=>'Send',
-'type'=>'submit',
-'class'=>'btn btn-default',
-));
-print $form->render();
-```
-
 
 ## Documents
 
