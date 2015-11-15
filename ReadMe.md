@@ -64,16 +64,16 @@ print $form->render();
 ```
 
 
+<<<<<<< HEAD
 ## Documents
 
 For more information on how to use this api to create web applications, see:
 
 * our [Wiki](https://github.com/dhtml/phpformapi/wiki) for much more.
+=======
+>>>>>>> origin/master
 
 ## Community
-
-We use the [phpformapi group](https://groups.google.com/forum/#!forum/phpformapi) for issues that are being tracked here on GitHub.
-
 You can chat with us on facebook http://facebook.com/dhtml5 
 
 
