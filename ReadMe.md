@@ -64,7 +64,6 @@ print $form->render();
 ```
 
 
-<<<<<<< HEAD
 ## Documents
 
 For more information on how to use this api to create web applications, see:
