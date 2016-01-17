@@ -1,20 +1,30 @@
 {
     "name": "dhtml/phpformapi",
+    "type": "library",
     "description": "phpformapi is an extremely dynamic and easy to use Form API.",
-    "homepage": "http://dhtmlframework.com/phpformapi",
+    "keywords": ["form", "bootstrap", "design", "coding", "php"],
+    "homepage": "https://github.com/dhtml/phpformapi",
     "license": "MIT",
     "authors": [
         {
             "name": "Anthony Ogundipe",
-            "email": "support@dhtmlextreme.net",
-            "homepage": "http://www.dhtmlextreme.net/",
-            "role": "Original Developer"
+            "homepage": "https://github.com/dhtml"
+        },
+        {
+            "name": "Contributors",
+            "homepage": "https://github.com/dhtml/phpformapi/contributors"
         }
     ],
     "require": {
-        "php": ">=5.0.0"
+        "php": ">=5.1.0"
     },
     "autoload": {
         "files": [ "lib/phpformapi.php" ]
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
     }
+	
 }
